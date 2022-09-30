@@ -103,7 +103,7 @@ public class CommandStat extends CommandThalliumBase {
             return getListOfStringsMatchingLastWord(args, "sidebar", "list", "belowname");
         }
         if (args.length == 2) {
-            return getListOfStringsMatchingLastWord(args, "break", "craft", "drop", "killedby", "killed", "mined", "pickedup", "used", "custom");
+            return getListOfStringsMatchingLastWord(args, "break", "craft", "drop", "killedby", "killed", "mined", "pickedup", "used", "custom", "clear");
         }
         if (args.length == 3) {
             System.out.println("TEST?");

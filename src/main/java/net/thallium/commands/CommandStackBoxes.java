@@ -46,10 +46,17 @@ public class CommandStackBoxes extends CommandThalliumBase {
 
 		for (Map.Entry<EnumDyeColor, Integer> entry : boxesToStack.entrySet()) {
 			if (entry.getValue() > 0) {
-				final ItemStack stack = new ItemStack(BlockShulkerBox.getBlockByColor(entry.getKey()), entry.getValue());
-				if (!player.addItemStackToInventory(stack)) {
-					player.dropItem(stack, false);
+				int stackCount = 0;
+				for (int i = 0; i < entry.getValue(); i++) {
+					stackCount++;
+					if (stackCount == 16) {
+						final ItemStack stack = new ItemStack(BlockShulkerBox.getBlockByColor(entry.getKey()), 16);
+						player.dropItem(stack, false);
+						stackCount = 0;
+					}
 				}
+				final ItemStack stack = new ItemStack(BlockShulkerBox.getBlockByColor(entry.getKey()), stackCount);
+				player.dropItem(stack, false);
 			}
 		}
 
