@@ -1,5 +1,5 @@
 # Thallium Server
-####A lighter bismuth
+### A lighter bismuth
 
 Custom server for my 1.12 single player. The motivation for this was integration with [my scoreboard format](https://github.com/TomB-134/Scoreboard112) and to only include features that I'll use. 
 
