@@ -18,9 +18,9 @@ apply plugin: "org.spongepowered.mixin"
 apply plugin: "com.github.johnrengelman.shadow"
 
 project.version = "1.2.4"
-group = "si.bismuth" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "bismuthserver"
-def tweakerClass = "${group}.launch.BismuthTweaker"
+group = "net.thallium"
+archivesBaseName = "thalliumserver"
+def tweakerClass = "${group}.launch.ThalliumTweaker"
 
 minecraft {
 	version = "1.12.2"
@@ -32,8 +32,8 @@ minecraft {
 	makeObfSourceJar = false
 
 	replaceIn "MCServer.java"
-	replace "@BISMUTHVERSION@", project.version
-	replaceIn "launch/BismuthLaunch.java"
+	replace "@THALLIUMVERSION@", project.version
+	replaceIn "launch/ThalliumLaunch.java"
 	replace "@MCVERSION@", minecraft.version
 	replace "@TWEAKER@", tweakerClass
 }
@@ -47,7 +47,7 @@ mixin {
 	defaultObfuscationEnv searge
 }
 
-sourceSets.main.ext.refMap = "mixins.bismuthserver.refmap.json"
+sourceSets.main.ext.refMap = "mixins.thalliumserver.refmap.json"
 
 repositories {
 	maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
@@ -75,6 +75,6 @@ shadowJar {
 tasks.build.dependsOn(shadowJar)
 
 jar.manifest.attributes(
-		"Main-Class": "${group}.launch.BismuthLaunch",
+		"Main-Class": "${group}.launch.ThalliumLaunch",
 		"Class-Path": "minecraft_server.${minecraft.version}.jar libraries/net/minecraft/launchwrapper/1.12/launchwrapper-1.12.jar"
 )
