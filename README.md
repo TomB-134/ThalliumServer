@@ -1,5 +1,11 @@
-# BismuthServer💖
-Custom Bismuth server jar built with Mixins! Built based on [VanillaMixins](https://github.com/Nessiesson/VanillaMixins) by [@Nessiesson](https://github.com/Nessiesson), using the Forge Team ForgeGradle server tweaker source code. Credits to all of the Forge(Gradle) Team for providing this amazing platform and Mumfrey for providing the Mixin library.
+# Thallium Server
+####A lighter bismuth
 
-Further credits go to the the Carpetmod team (such as Xcom6000, gnembonMC, 2No2Name, et.,al.) who have provided some of the code used in this mod.
+Custom server for my 1.12 single player. The motivation for this was integration with [my scoreboard format](https://github.com/TomB-134/Scoreboard112) and to only include features that I'll use. 
+
+Built with [VanillaMixins](https://github.com/Nessiesson/VanillaMixins) by [@Nessiesson](https://github.com/Nessiesson)
+
+Credit to Nessie, Landmining and DeadlyMC for [Bismuth Server](https://github.com/Nessiesson/BismuthServer) which this mod forked from. 
+
+Additional credit to [Carpet Mod](https://github.com/gnembon/carpetmod112) by Gnembon et al from which this mod uses code.
 
