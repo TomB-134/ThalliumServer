@@ -24,7 +24,6 @@ public class EntityPlayerMPFake extends EntityPlayerMP {
 	private double lastReportedPosX;
 	private double lastReportedPosY;
 	private double lastReportedPosZ;
-
 	private double setX;
 	private double setY;
 	private double setZ;

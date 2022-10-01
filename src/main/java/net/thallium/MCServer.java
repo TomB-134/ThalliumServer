@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.GameType;
+import net.thallium.helpers.PlayerActionHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.thallium.logging.LoggerRegistry;
@@ -19,6 +20,7 @@ import net.thallium.utils.HUDController;
 import net.thallium.utils.ScoreboardHandler;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
 
 public class MCServer {
 	public static final String THALLIUM_SERVER_VERSION = "@THALLIUMVERSION@";
@@ -29,6 +31,8 @@ public class MCServer {
 	private static final IRecipe duration1 = new ShapelessRecipes("rocket", makeFirework(1), NonNullList.from(Ingredient.EMPTY, PAPER, SULPHUR));
 	private static final IRecipe duration2 = new ShapelessRecipes("rocket", makeFirework(2), NonNullList.from(Ingredient.EMPTY, PAPER, SULPHUR, SULPHUR));
 	private static final IRecipe duration3 = new ShapelessRecipes("rocket", makeFirework(3), NonNullList.from(Ingredient.EMPTY, PAPER, SULPHUR, SULPHUR, SULPHUR));
+
+	public static final ArrayList<PlayerActionHandler> actionHandlers = new ArrayList<>();
 
 	static {
 		CraftingManager.register("thallium:durationone", duration1);
@@ -58,6 +62,10 @@ public class MCServer {
 
 	public static void tick(MinecraftServer server) {
 		HUDController.update_hud(server);
+
+		for (PlayerActionHandler actionHandler : actionHandlers) {
+			actionHandler.onUpdate();
+		}
 	}
 
 	public static void playerConnected(EntityPlayerMP player) {
@@ -70,9 +78,12 @@ public class MCServer {
 
 		LoggerRegistry.playerConnected(player);
 		unlockCustomRecipes(player);
+
+		actionHandlers.add(new PlayerActionHandler(player));
 	}
 
 	public static void playerDisconnected(EntityPlayerMP player) {
+		actionHandlers.removeIf(actionHandler -> actionHandler.player == player);
 		LoggerRegistry.playerDisconnected(player);
 	}
 

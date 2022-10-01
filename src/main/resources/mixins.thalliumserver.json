@@ -5,6 +5,7 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"IBlockShulkerBox",
+		"ICPacketPlayerDigging",
 		"ISPacketPlayerListHeaderFooter",
 		"IWorldServer",
 		"MixinDedicatedServer",
@@ -16,6 +17,7 @@
 		"MixinWorld",
 		"MixinWorldEntitySpawner",
 		"MixinWorldServer",
-		"MixinEntityLiving"
+		"MixinEntityLiving",
+		"MixinPlayerList"
 	]
 }
