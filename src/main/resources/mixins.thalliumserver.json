@@ -15,6 +15,7 @@
 		"MixinTileEntityPiston",
 		"MixinWorld",
 		"MixinWorldEntitySpawner",
-		"MixinWorldServer"
+		"MixinWorldServer",
+		"MixinEntityLiving"
 	]
 }

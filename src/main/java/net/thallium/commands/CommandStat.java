@@ -106,8 +106,6 @@ public class CommandStat extends CommandThalliumBase {
             return getListOfStringsMatchingLastWord(args, "break", "craft", "drop", "killedby", "killed", "mined", "pickedup", "used", "custom", "clear");
         }
         if (args.length == 3) {
-            System.out.println("TEST?");
-            System.out.println(args[1]);
             if ("break".equalsIgnoreCase(args[1])) {
                 return getListOfStringsMatchingLastWord(args, ScoreboardHandler.scoreboardBreakShorthand);
             }
