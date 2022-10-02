@@ -1,13 +1,12 @@
 {
 	"package": "net.thallium.mixins",
-	"refmap": "mixins.thallium.refmap.json",
+	"refmap": "mixins.thalliumserver.refmap.json",
 	"minVersion": "0.7.3",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"IBlockShulkerBox",
 		"ICPacketPlayerDigging",
 		"ISPacketPlayerListHeaderFooter",
-		"IWorldServer",
 		"MixinDedicatedServer",
 		"MixinEntityLivingBase",
 		"MixinMinecraftServer",

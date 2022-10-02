@@ -40,11 +40,11 @@ minecraft {
 
 reobf {
 	shadowJar {
-		mappingType = "SEARGE"
+		mappingType = "NOTCH"
 	}
 }
 mixin {
-	defaultObfuscationEnv searge
+	defaultObfuscationEnv notch
 }
 
 sourceSets.main.ext.refMap = "mixins.thalliumserver.refmap.json"
