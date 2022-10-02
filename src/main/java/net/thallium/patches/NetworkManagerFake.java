@@ -4,10 +4,15 @@ import net.minecraft.network.EnumPacketDirection;
 import net.minecraft.network.NetworkManager;
 
 public class NetworkManagerFake extends NetworkManager {
-	NetworkManagerFake() {
-		super(EnumPacketDirection.CLIENTBOUND);
+	public NetworkManagerFake(EnumPacketDirection p)
+	{
+		super(p);
 	}
 
-	public void disableAutoRead() {
+	public void disableAutoRead()
+	{
+	}
+	public void checkDisconnected()
+	{
 	}
 }

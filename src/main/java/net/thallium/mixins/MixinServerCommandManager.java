@@ -18,7 +18,6 @@ public abstract class MixinServerCommandManager extends CommandHandler implement
 	private void onCtor(MinecraftServer server, CallbackInfo ci) {
 		this.registerCommand(new CommandLog());
 		this.registerCommand(new CommandPing());
-//		this.registerCommand(new CommandPlayer());
 		this.registerCommand(new CommandStackBoxes());
 		this.registerCommand(new CommandTick());
 		this.registerCommand(new CommandStat());
