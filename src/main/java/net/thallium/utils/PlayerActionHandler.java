@@ -1,4 +1,4 @@
-package net.thallium.helpers;
+package net.thallium.utils;
 
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
@@ -103,9 +103,25 @@ public class PlayerActionHandler {
     }
 
     public void onUpdate() {
-        /*
-        TODO
-         */
+        boolean used = false;
+
+        if (doesUse && (--useCooldown)==0)
+        {
+            useCooldown = useInterval;
+            used  = useOnce();
+        }
+        if (doesAttack)
+        {
+            if ((--attackCooldown) == 0)
+            {
+                attackCooldown = attackInterval;
+                if (!(used)) attackOnce();
+            }
+            else
+            {
+                resetBlockRemoving();
+            }
+        }
     }
 
     public void attackOnce() {

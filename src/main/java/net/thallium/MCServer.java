@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.GameType;
-import net.thallium.helpers.PlayerActionHandler;
+import net.thallium.utils.PlayerActionHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.thallium.logging.LoggerRegistry;

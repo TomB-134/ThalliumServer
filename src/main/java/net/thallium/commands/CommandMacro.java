@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.thallium.MCServer;
-import net.thallium.helpers.PlayerActionHandler;
+import net.thallium.utils.PlayerActionHandler;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
@@ -21,9 +21,6 @@ public class CommandMacro extends CommandThalliumBase{
         return "Usage: macro <attack|use> <once|continuous|interval";
     }
 
-    /*
-    TODO CLEAN UP AND IDIOT PROOF
-     */
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (!(sender instanceof EntityPlayer)) {return;}
 
@@ -41,10 +38,9 @@ public class CommandMacro extends CommandThalliumBase{
         if ("use".equalsIgnoreCase(action) || "attack".equalsIgnoreCase(action)) {
             String option = "once";
             int interval = 0;
-            if (args.length > 2) {
-                option = args[2];
-                if (args.length > 3 && option.equalsIgnoreCase("interval"))
-                {
+            if (args.length > 1) {
+                option = args[1];
+                if (args.length > 2 && option.equalsIgnoreCase("interval")) {
                     interval = parseInt(args[2],2,72000);
                 }
             }
