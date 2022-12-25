@@ -50,7 +50,7 @@ public class EntityPlayerMPFake extends EntityPlayerMP {
 		gameprofile = fixSkin(gameprofile);
 		EntityPlayerMPFake playerShadow = new EntityPlayerMPFake(server, worldIn, gameprofile, interactionManagerIn);
 		playerShadow.setSetPosition(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
-		server.getPlayerList().initializeConnectionToPlayer(new NetworkManagerFake(EnumPacketDirection.CLIENTBOUND), playerShadow);
+		server.getPlayerList().initializeConnectionToPlayer(new NetworkManagerFake(), playerShadow);
 
 		playerShadow.setHealth(player.getHealth());
 		playerShadow.connection.setPlayerLocation(player.posX, player.posY,player.posZ, player.rotationYaw, player.rotationPitch);
@@ -61,6 +61,41 @@ public class EntityPlayerMPFake extends EntityPlayerMP {
 		server.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, playerShadow));
 		server.getPlayerList().serverUpdateMovingPlayer(playerShadow);
 		return playerShadow;
+	}
+
+	public static void createFake(String username, MinecraftServer server, double x, double y, double z, double yaw, double pitch, int dimension, int gamemode) {
+		WorldServer worldIn = server.getWorld(dimension);
+		PlayerInteractionManager interactionManagerIn = new PlayerInteractionManager(worldIn);
+		GameProfile gameprofile = server.getPlayerProfileCache().getGameProfileForUsername(username);
+		if (gameprofile == null) {
+			UUID uuid = EntityPlayer.getUUID(new GameProfile(null, username));
+			gameprofile = new GameProfile(uuid, username);
+		}
+
+		gameprofile = fixSkin(gameprofile);
+		EntityPlayerMPFake instance = new EntityPlayerMPFake(server, worldIn, gameprofile, interactionManagerIn);
+		instance.setSetPosition(x, y, z, (float) yaw, (float) pitch);
+		server.getPlayerList().initializeConnectionToPlayer(new NetworkManagerFake(), instance);
+		if (instance.dimension != dimension) //player was logged in in a different dimension
+		{
+			WorldServer old_world = server.getWorld(instance.dimension);
+			instance.dimension = dimension;
+			old_world.removeEntityDangerously(instance);
+			instance.isDead = false;
+			worldIn.spawnEntity(instance);
+			instance.setWorld(worldIn);
+			server.getPlayerList().preparePlayer(instance, old_world);
+			instance.connection.setPlayerLocation(x, y, z, (float) yaw, (float) pitch);
+			instance.interactionManager.setWorld(worldIn);
+		}
+		instance.setHealth(20.0F);
+		instance.isDead = false;
+		instance.stepHeight = 0.6F;
+		interactionManagerIn.setGameType(GameType.getByID(gamemode));
+		server.getPlayerList().sendPacketToAllPlayersInDimension(new SPacketEntityHeadLook(instance, (byte) (instance.rotationYawHead * 256 / 360)), instance.dimension);
+		server.getPlayerList().sendPacketToAllPlayersInDimension(new SPacketEntityTeleport(instance), instance.dimension);
+		server.getPlayerList().serverUpdateMovingPlayer(instance);
+		instance.dataManager.set(PLAYER_MODEL_FLAG, (byte) 0x7f); // show all model layers (incl. capes)
 	}
 
 	private static GameProfile fixSkin(GameProfile gameProfile) {

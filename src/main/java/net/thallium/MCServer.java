@@ -35,9 +35,9 @@ public class MCServer {
 	public static final ArrayList<PlayerActionHandler> actionHandlers = new ArrayList<>();
 
 	static {
-		CraftingManager.register("thallium:durationone", duration1);
-		CraftingManager.register("thallium:durationtwo", duration2);
-		CraftingManager.register("thallium:durationthree", duration3);
+		CraftingManager.register("bismuth:durationone", duration1);
+		CraftingManager.register("bismuth:durationtwo", duration2);
+		CraftingManager.register("bismuth:durationthree", duration3);
 	}
 
 	private static ItemStack makeFirework(int duration) {
@@ -78,12 +78,9 @@ public class MCServer {
 
 		LoggerRegistry.playerConnected(player);
 		unlockCustomRecipes(player);
-
-		actionHandlers.add(new PlayerActionHandler(player));
 	}
 
 	public static void playerDisconnected(EntityPlayerMP player) {
-		actionHandlers.removeIf(actionHandler -> actionHandler.player == player);
 		LoggerRegistry.playerDisconnected(player);
 	}
 

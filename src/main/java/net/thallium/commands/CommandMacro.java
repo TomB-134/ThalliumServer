@@ -25,17 +25,12 @@ public class CommandMacro extends CommandThalliumBase{
         if (!(sender instanceof EntityPlayer)) {return;}
 
         EntityPlayerMP playerMP = getCommandSenderAsPlayer(sender);
-        PlayerActionHandler playersActionHandler = null;
-
-        for (PlayerActionHandler actionHandler : MCServer.actionHandlers) {
-            if (actionHandler.player == playerMP) {
-                playersActionHandler = actionHandler;
-            }
-        } if (playersActionHandler == null) { return; }
 
         String action = args[0];
 
         if ("use".equalsIgnoreCase(action) || "attack".equalsIgnoreCase(action)) {
+            PlayerActionHandler playersActionHandler = new PlayerActionHandler(playerMP);
+            MCServer.actionHandlers.add(playersActionHandler);
             String option = "once";
             int interval = 0;
             if (args.length > 1) {
@@ -63,13 +58,18 @@ public class CommandMacro extends CommandThalliumBase{
             }
         }
         if ("stop".equalsIgnoreCase(action)) {
-            playersActionHandler.stop();
+            for (PlayerActionHandler actionHandler : MCServer.actionHandlers) {
+                if (actionHandler.player.getUniqueID() == playerMP.getUniqueID()) {
+                    actionHandler.stop();
+                }
+            }
+            MCServer.actionHandlers.removeIf(handler -> handler.player.getUniqueID() == playerMP.getUniqueID());
         }
     }
 
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, "use", "attack");
+            return getListOfStringsMatchingLastWord(args, "use", "attack", "stop");
         }
         if (args.length == 2) {
             return getListOfStringsMatchingLastWord(args, "once", "continuous", "interval");
