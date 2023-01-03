@@ -40,29 +40,6 @@ public class EntityPlayerMPFake extends EntityPlayerMP {
 		super(server, worldIn, profile, interactionManagerIn);
 	}
 
-	public static EntityPlayerMPFake createShadow(MinecraftServer server, EntityPlayerMP player)
-	{
-		player.getServer().getPlayerList().playerLoggedOut(player);
-		player.connection.disconnect(new TextComponentTranslation("multiplayer.disconnect.duplicate_login"));
-		WorldServer worldIn = server.getWorld(player.dimension);
-		PlayerInteractionManager interactionManagerIn = new PlayerInteractionManager(worldIn);
-		GameProfile gameprofile = player.getGameProfile();
-		gameprofile = fixSkin(gameprofile);
-		EntityPlayerMPFake playerShadow = new EntityPlayerMPFake(server, worldIn, gameprofile, interactionManagerIn);
-		playerShadow.setSetPosition(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
-		server.getPlayerList().initializeConnectionToPlayer(new NetworkManagerFake(), playerShadow);
-
-		playerShadow.setHealth(player.getHealth());
-		playerShadow.connection.setPlayerLocation(player.posX, player.posY,player.posZ, player.rotationYaw, player.rotationPitch);
-		interactionManagerIn.setGameType(player.interactionManager.getGameType());
-		playerShadow.stepHeight = 0.6F;
-
-		server.getPlayerList().sendPacketToAllPlayersInDimension(new SPacketEntityHeadLook(playerShadow, (byte)(player.rotationYawHead * 256 / 360) ),playerShadow.dimension);
-		server.getPlayerList().sendPacketToAllPlayers(new SPacketPlayerListItem(SPacketPlayerListItem.Action.ADD_PLAYER, playerShadow));
-		server.getPlayerList().serverUpdateMovingPlayer(playerShadow);
-		return playerShadow;
-	}
-
 	public static void createFake(String username, MinecraftServer server, double x, double y, double z, double yaw, double pitch, int dimension, int gamemode) {
 		WorldServer worldIn = server.getWorld(dimension);
 		PlayerInteractionManager interactionManagerIn = new PlayerInteractionManager(worldIn);

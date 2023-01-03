@@ -148,7 +148,6 @@ public class PlayerActionHandler {
     }
 
     public boolean useOnce() {
-        System.out.println(player.getName());
         RayTraceResult raytraceresult = mouseOver();
         for (EnumHand enumhand : EnumHand.values())
         {
