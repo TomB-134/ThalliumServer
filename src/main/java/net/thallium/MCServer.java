@@ -1,5 +1,6 @@
 package net.thallium;
 
+import net.minecraft.command.CommandSenderWrapper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -15,12 +16,15 @@ import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class MCServer {
 	public static final String THALLIUM_SERVER_VERSION = "@THALLIUMVERSION@";
 	public static final Logger log = LogManager.getLogger("Thallium");
 	public static MinecraftServer server;
 	public static final ArrayList<PlayerActionHandler> actionHandlers = new ArrayList<>();
+
+	public static final ArrayList<UUID> joinedPlayers = new ArrayList<>();
 
 	private static ItemStack makeFirework(int duration) {
 		final NBTTagCompound durationTag = new NBTTagCompound();
@@ -59,6 +63,12 @@ public class MCServer {
 		}
 
 		LoggerRegistry.playerConnected(player);
+
+		if (!joinedPlayers.contains(player.getUniqueID())) {
+			joinedPlayers.add(player.getUniqueID());
+			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log tps");
+			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log mobcaps");
+		}
 	}
 
 	public static void playerDisconnected(EntityPlayerMP player) {
