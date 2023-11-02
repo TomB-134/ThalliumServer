@@ -129,11 +129,17 @@ public class CommandLog extends CommandThalliumBase {
 			} else {
 				LoggerRegistry.subscribePlayer(player.getName(), logger.getLogName(), option, handler);
 			}
+			if (args.length >= 2) {
+				if (args[1].equalsIgnoreCase("quiet")) {
+					return;
+				}
+			}
 			if (subscribed) {
 				Messenger.m(player, "gi Subscribed to " + logger.getLogName() + ".");
 			} else {
 				Messenger.m(player, "gi Unsubscribed from " + logger.getLogName() + ".");
 			}
+
 		} else {
 			throw new WrongUsageException("No logger named " + args[0] + ".");
 		}

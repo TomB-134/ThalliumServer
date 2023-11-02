@@ -66,8 +66,8 @@ public class MCServer {
 
 		if (!joinedPlayers.contains(player.getUniqueID())) {
 			joinedPlayers.add(player.getUniqueID());
-			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log tps");
-			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log mobcaps");
+			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log tps quiet");
+			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log mobcaps quiet");
 		}
 	}
 
