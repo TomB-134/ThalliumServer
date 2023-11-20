@@ -23,6 +23,7 @@ public abstract class MixinServerCommandManager extends CommandHandler implement
 		this.registerCommand(new CommandStat());
 		this.registerCommand(new CommandMacro());
 		this.registerCommand(new CommandBot());
+		this.registerCommand(new CommandRuntime());
 	}
 
 	@Inject(method = "notifyListener", at = @At("HEAD"), cancellable = true)

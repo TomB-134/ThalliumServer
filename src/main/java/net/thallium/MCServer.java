@@ -64,7 +64,7 @@ public class MCServer {
 
 		LoggerRegistry.playerConnected(player);
 
-		if (!joinedPlayers.contains(player.getUniqueID())) {
+		if (!joinedPlayers.contains(player.getUniqueID())) { //I hate this I hate this I hate this I hate this
 			joinedPlayers.add(player.getUniqueID());
 			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log tps quiet");
 			player.server.commandManager.executeCommand(player.getCommandSenderEntity(), "/log mobcaps quiet");

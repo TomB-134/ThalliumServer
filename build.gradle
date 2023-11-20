@@ -17,7 +17,7 @@ apply plugin: "net.minecraftforge.gradle.tweaker-server"
 apply plugin: "org.spongepowered.mixin"
 apply plugin: "com.github.johnrengelman.shadow"
 
-project.version = "1.0.4"
+project.version = "1.0.5"
 group = "net.thallium"
 archivesBaseName = "thalliumserver"
 def tweakerClass = "${group}.launch.ThalliumTweaker"
